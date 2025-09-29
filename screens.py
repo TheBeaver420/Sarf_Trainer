@@ -3,10 +3,11 @@ from widgets import create_title, create_button
 
 class SarfTrainerApp:
     def __init__(self,root):
+        self.root = root
         self.title = None
         self.start_btn = None
         self.next_label = None
-        self.root = root
+        self.quiz_label = None
 
         # get monitor resolution
 
@@ -33,11 +34,10 @@ class SarfTrainerApp:
 
         # Create button
         self.start_btn = create_button(
-            self.root,text="Start",command=self.start_pressed
-        )
+            self.root,text="Start",command=self.show_options_screen)
         self.start_btn.place(relx=0.5, rely=0.2, anchor="center")
 
-    def start_pressed(self):
+    def show_options_screen(self):
         # Destroy old widgets
         self.title.destroy()
         self.start_btn.destroy()
@@ -45,6 +45,13 @@ class SarfTrainerApp:
         # Show next screen
 
         self.next_label = create_title(
-            self.root,"Welcome to Sarf Trainer"
+            self.root,"Welcome to Sarf Trainer, pick your options"
         )
         self.next_label.place(relx=0.5, rely=0.2, anchor="center")
+        self.start_btn = create_button(self.root,"Done!",command=self.show_quiz_screen)
+        self.start_btn.place(relx=0.5, rely=0.3, anchor="center")
+
+    def show_quiz_screen(self):
+        self.next_label.destroy()
+        self.quiz_label = create_title(self.root,"Question 1:")
+        self.quiz_label.place(relx=0.5, rely=0.1, anchor="center")

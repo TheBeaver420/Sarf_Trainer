@@ -1,4 +1,4 @@
-from customtkinter import CTkLabel, CTkButton
+from customtkinter import *
 
 # title
 
@@ -15,7 +15,7 @@ def create_title(root,text):
 def create_button(root,text,command):
     return CTkButton(
         master=root,
-        text="Start",
+        text=text,
         corner_radius=32,
         command=command,
         width=200,
@@ -23,3 +23,4 @@ def create_button(root,text,command):
         fg_color="transparent",
         font=("Arial",40,"bold")
     )
+
