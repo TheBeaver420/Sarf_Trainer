@@ -29,6 +29,8 @@ class SarfTrainerApp:
         # Start screen
         self.show_start_screen()
 
+        self.question_number = 0
+
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
@@ -70,6 +72,8 @@ class SarfTrainerApp:
     def process_answer(self,answer):
         print(f"User selected:{answer}")
         self.show_quiz_screen()
+        self.question_number += 1
+        print(self.question_number)
 
 #Defines frame that shows a question, checkboxes and a submit button
 class QuizFrame(CTkFrame):
