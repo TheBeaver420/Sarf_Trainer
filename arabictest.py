@@ -5,7 +5,6 @@ from camel_tools.morphology.analyzer import Analyzer
 from camel_tools.morphology.generator import Generator
 from camel_tools.utils.dediac import dediac_ar
 from camel_tools.morphology.reinflector import Reinflector
-from sympy.physics.optics import lens_makers_formula
 
 bw2ar = CharMapper.builtin_mapper('bw2ar')
 bw2ar_translit = Transliterator(bw2ar)
@@ -33,32 +32,45 @@ generator = Generator(dbg)
 
 ar_word = sentence_ar_stripped
 analysed_words = analyzer.analyze(ar_word)
-# print(analysed_words[1]['lex'])
-# lemma = analysed_words[1]['lex']
-# features = {
-#     'pos': 'verb',
-#     'gen': 'm',
-#     'asp': 'i',
-#     'per': '1',
-#     'num': 's',
-#     'vox': 'a'
-# }
-#
-# # Generate analyses for lemma and features
-# generated = generator.generate(lemma, features)
-# for i in generated:
-#     print(i["diac"])
-new_feats = {
-    'asp': 'p',
-    'per': '3',
-    'gen': 'm',
-    'num': 's',
-    'vox': 'a'
-}
-analysis = analysed_words[0]
-print(analysis)
-reinflector = Reinflector(dbr)
-reinflected = reinflector.reinflect(analysis['diac'], new_feats)
-print([g['diac'] for g in reinflected])
 
-# print(f"analysis is{analyses}")
+for analysis in analysed_words:
+    if analysis['pos'] == 'verb':
+        lemma = analysis['lex']
+        break
+
+wordlist = []
+
+forms = [
+    ('هُوَ',     '3', 'm', 's'),
+    ('هُمَا',    '3', 'm', 'd'),
+    ('هُمْ',     '3', 'm', 'p'),
+    ('هِيَ',     '3', 'f', 's'),
+    ('هُمَا',    '3', 'f', 'd'),
+    ('هُنَّ',    '3', 'f', 'p'),
+    ('أَنْتَ',   '2', 'm', 's'),
+    ('أَنْتُمَا','2', 'm', 'd'),
+    ('أَنْتُمْ', '2', 'm', 'p'),
+    ('أَنْتِ',   '2', 'f', 's'),
+    ('أَنْتُمَا','2', 'f', 'd'),
+    ('أَنْتُنَّ','2', 'f', 'p'),
+    ('أَنَا',    '1', 'm', 's'),
+    ('نَحْنُ',   '1', 'm', 'p')
+]
+
+for pronoun, person, gender, number in forms:
+
+    features = {
+        'pos': 'verb',
+        'asp': 'p',
+        'vox': 'a',
+        'per': person,
+        'gen': gender,
+        'num': number
+    }
+
+    generated = generator.generate(lemma, features)
+
+    if generated:
+        wordlist.append(generated[0]['diac'])
+
+print(wordlist)
