@@ -61,8 +61,8 @@ for pronoun, person, gender, number in forms:
 
     features = {
         'pos': 'verb',
-        'asp': 'p',
-        'vox': 'a',
+        'asp': tense,
+        'vox': voice,
         'per': person,
         'gen': gender,
         'num': number
