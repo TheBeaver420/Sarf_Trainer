@@ -3,6 +3,8 @@ from camel_tools.utils.transliterate import Transliterator
 from camel_tools.morphology.database import MorphologyDB
 from camel_tools.morphology.analyzer import Analyzer
 from camel_tools.morphology.generator import Generator
+import random
+from wordlist import *
 
 bw2ar = CharMapper.builtin_mapper('bw2ar')
 bw2ar_translit = Transliterator(bw2ar)
@@ -16,6 +18,10 @@ dbg = MorphologyDB.builtin_db(flags="g")
 
 analyzer = Analyzer(dba, "NOAN_PROP")
 generator = Generator(dbg)
+
+def pickword():
+    return random.choice(list(words.keys()))
+    
 
 def generate_conjugations(sentence_bw,tense,voice):
     wordlist = []
@@ -65,4 +71,6 @@ def generate_conjugations(sentence_bw,tense,voice):
 
     return wordlist
 
-print(generate_conjugations('ftH','p', 'a')) 
+for i in range(5):
+    x = pickword()
+    print(generate_conjugations(x,'p', 'a')) 

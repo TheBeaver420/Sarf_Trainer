@@ -4,10 +4,10 @@ from widgets import create_title, create_button
 
 
 # app setup
-# def main():
-#     app = CTk()
-#     SarfTrainerApp(app)
-#     app.mainloop()
+def main():
+    app = CTk()
+    SarfTrainerApp(app)
+    app.mainloop()
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

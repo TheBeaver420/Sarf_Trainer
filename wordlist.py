@@ -1,0 +1,28 @@
+words = {
+    "bdhl": "to spend",
+    "bsT": "to spread",
+    "bTl": "to become null/void",
+    "blg": "to reach",
+    "trk": "to leave",
+    "thbt": "to be fixed/established",
+    "Hdth": "to occur",
+    "Hrth": "to cultivate",
+    "Hshr": "to gather",
+    "HSd": "to harvest",
+    "HDr": "to be present/come",
+    "khrj": "to go out/exit",
+    "khlq": "to last forever",
+    "dlk": "to enter",
+    "rbT": "to bind",
+    "rjm": "to stone",
+    "rqb": "to observe",
+    "rqd": "to sleep",
+    "rkD": "to run",
+    "zjr": "to reprimand/restrain",
+    "zEm": "to claim",
+    "str": "to cover",
+    "sqT": "to fall",
+    "skT": "to be silent",
+    "skt": "to be tranquil"
+}
+
