@@ -1,5 +1,7 @@
 from customtkinter import *
 from widgets import create_title, create_button
+from functions import generate_conjugations, pickword
+import random
 
 class SarfTrainerApp:
     def __init__(self,root):
@@ -61,10 +63,13 @@ class SarfTrainerApp:
 
 
     def show_quiz_screen(self):
+        word = pickword()
+        conjugations = generate_conjugations(word, 'p', 'a')
+        chosen_conj = random.choice(conjugations)
         self.clear_screen()
         self.quiz_frame = QuizFrame(
             master = self.root,
-            question_text="What does the word كتب mean?" ,
+            question_text=f"What does the word {chosen_conj} mean?" ,
             on_submit=self.process_answer
         )
         self.quiz_frame.pack(fill="both",expand=True)
@@ -90,7 +95,7 @@ class QuizFrame(CTkFrame):
         for i in range(4):
             var = IntVar()
             checkbox = CTkCheckBox(
-                self, text=f"Option {i+1}", variable=var
+                self, text=f"Option {i+1}:", variable=var
             )
             checkbox.pack(pady=30)
             self.answers_vars.append(checkbox)
