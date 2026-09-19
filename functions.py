@@ -21,9 +21,41 @@ generator = Generator(dbg)
 
 def pickword():
     return random.choice(list(words.keys()))
-    
 
-def generate_conjugations(sentence_bw,tense,voice):
+def pickform():
+    forms = [
+        ('3', 'm', 's', 'a'),
+        ('3', 'm', 'd', 'a'),
+        ('3', 'm', 'p', 'a'),
+        ('3', 'f', 's', 'a'),
+        ('3', 'f', 'd', 'a'),
+        ('3', 'f', 'p', 'a'),
+        ('2', 'm', 's', 'a'),
+        ('2', 'm', 'd', 'a'),
+        ('2', 'm', 'p', 'a'),
+        ('2', 'f', 's', 'a'),
+        ('2', 'f', 'd', 'a'),
+        ('2', 'f', 'p', 'a'),
+        ('1', 'm', 's', 'a'),
+        ('1', 'm', 'p', 'a'),
+        ('3', 'm', 's', 'p'),
+        ('3', 'm', 'd', 'p'),
+        ('3', 'm', 'p', 'p'),
+        ('3', 'f', 's', 'p'),
+        ('3', 'f', 'd', 'p'),
+        ('3', 'f', 'p', 'p'),
+        ('2', 'm', 's', 'p'),
+        ('2', 'm', 'd', 'p'),
+        ('2', 'm', 'p', 'p'),
+        ('2', 'f', 's', 'p'),
+        ('2', 'f', 'd', 'p'),
+        ('2', 'f', 'p', 'p'),
+        ('1', 'm', 's', 'p'),
+        ('1', 'm', 'p', 'p')
+    ]
+    return random.choice(forms)
+
+def generate_conjugations(sentence_bw,tense, person, gender, number, voice):
     wordlist = []
     sentence_ar = bw2ar_translit.transliterate(sentence_bw)
     sentence_ar_stripped = bw2ar_translit.transliterate(sentence_ar, strip_markers=True)
@@ -36,41 +68,25 @@ def generate_conjugations(sentence_bw,tense,voice):
             lemma = analysis['lex']
             break
 
-    forms = [
-        ('3', 'm', 's'),
-        ('3', 'm', 'd'),
-        ('3', 'm', 'p'),
-        ('3', 'f', 's'),
-        ('3', 'f', 'd'),
-        ('3', 'f', 'p'),
-        ('2', 'm', 's'),
-        ('2', 'm', 'd'),
-        ('2', 'm', 'p'),
-        ('2', 'f', 's'),
-        ('2', 'f', 'd'),
-        ('2', 'f', 'p'),
-        ('1', 'm', 's'),
-        ('1', 'm', 'p')
-    ]
 
-    for person, gender, number in forms:
+    features = {
+        'pos': 'verb',
+        'asp': tense,
+        'vox': voice,
+        'per': person,
+        'num': number
+    }
 
-        features = {
-            'pos': 'verb',
-            'asp': tense,
-            'vox': voice,
-            'per': person,
-            'gen': gender,
-            'num': number
-        }
+    generated = generator.generate(lemma, features)
 
-        generated = generator.generate(lemma, features)
-
-        if generated:
-            wordlist.append(generated[0]['diac'])
+    if generated:
+        wordlist.append(generated[0]['diac'])
 
     return wordlist
 
-for i in range(5):
-    x = pickword()
-    print(generate_conjugations(x,'p', 'a')) 
+# for i in range(10):
+#     word = pickword()
+#     print(word)
+#     forms = pickform()
+#     print(forms)
+#     print(generate_conjugations("b*l", "p", forms[0], forms[1], forms[2], forms[3])) 

@@ -72,15 +72,36 @@ py main.py
 
 ### Unit Testing
 
-The application was tested using Python unit tests to verify the functionality
-of the Arabic morphology and word generation features.
+Unit testing was carried out using Python's built-in unittest framework. Tests were created to check whether the Arabic conjugation generation function successfully returns a generated form for different grammatical inputs.
 
-| Test | Expected | Result |
-|---|---|---|
-| `ktb` transliteration | `كتب` | PASS |
-| Morphological analysis | Correct analysis | PASS |
-| Word generation | Correct form | PASS |
-| `smE` generation | Expected form | LIMITATION |
+The tests can be run using:
+
+python -m unittest discover -s tests -v
+Conjugation Generation Tests
+
+The following tests were carried out:
+
+| Test          | Input                                                     | Expected Result                      | Result |
+| ------------- | --------------------------------------------------------- | ------------------------------------ | ------ |
+| Active voice  | `b*l`, present, 2nd person, masculine, singular, active  | A conjugated Arabic form is returned | Pass   |
+| Passive voice | `b*l`, present, 2nd person, masculine, singular, passive | A conjugated Arabic form is returned | Fail   |
+
+The active voice test successfully returned a generated Arabic form. The passive voice test returned an empty list ([]) instead of a generated form.
+
+The failed passive test helped identify a limitation in the current use of CAMeL Tools' morphological generation. This is documented further in the Known Issues section.
+
+Test Structure
+
+Tests are stored separately from the main application code in the tests directory:
+
+Sarf_Trainer/
+├── main.py
+├── functions.py
+├── screens.py
+├── widgets.py
+├── wordlist.py
+└── tests/
+    └── test_functions.py
 
 ## Known Issues
 
@@ -96,3 +117,9 @@ within the application.
 
 ## Future Improvements
 
+
+- Improve lemma selection when multiple morphological analyses are returned by CAMeL Tools.
+- Store additional morphological information with each word to reduce reliance on automatic analysis.
+- Expand the wordlist with additional Arabic roots and verb forms.
+- Add more comprehensive automated unit testing.
+- Improve handling of edge cases in Arabic morphological generation.

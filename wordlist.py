@@ -1,5 +1,5 @@
 words = {
-    "bdhl": "to spend",
+    "b*l": "to spend",
     "bsT": "to spread",
     "bTl": "to become null/void",
     "blg": "to reach",
@@ -22,7 +22,6 @@ words = {
     "zEm": "to claim",
     "str": "to cover",
     "sqT": "to fall",
-    "skT": "to be silent",
     "skt": "to be tranquil"
 }
 
