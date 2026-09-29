@@ -3,17 +3,10 @@ from functions import generate_conjugations
 
 class TestConjugation(unittest.TestCase):
 
-    def test_passive_generationktb(self):
-        result = generate_conjugations("ktb", "p", "2", "m", "s", "p")
-        self.assertTrue(result)
-
-    def test_passive_generationxrj(self):
-        result = generate_conjugations("xrj", "p", "2", "m", "s", "p")
-        self.assertTrue(result)
-
-    def test_passive_generationrbT(self):
-        result = generate_conjugations("rbT", "p", "2", "m", "s", "p")
-        self.assertTrue(result)
+    def test_generate_conjugations(self):
+        generated_forms = generate_conjugations(questions=100)
+        if len(generated_forms) != 100:
+            self.fail(f"Expected 100 generated forms, but got {len(generated_forms)}")
 
 if __name__ == "__main__":
     unittest.main()

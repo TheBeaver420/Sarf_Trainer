@@ -7,7 +7,7 @@ words = {
     "thbt": "to be fixed/established",
     "Hdth": "to occur",
     "Hrth": "to cultivate",
-    "Hshr": "to gather",
+    "H$r": "to gather",
     "HSd": "to harvest",
     "HDr": "to be present/come",
     "xrj": "to go out/exit",

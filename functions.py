@@ -37,7 +37,6 @@ def pickform():
         ('2', 'm', 'd', 'p'),
         ('2', 'm', 'p', 'p'),
         ('2', 'f', 's', 'p'),
-        ('2', 'f', 'd', 'p'),
         ('2', 'f', 'p', 'p'),
         ('1', 'm', 's', 'p'),
         ('1', 'm', 'p', 'p'),
@@ -50,7 +49,6 @@ def pickform():
         ('2', 'm', 's', 'i'),
         ('2', 'm', 'd', 'i'),
         ('2', 'm', 'p', 'i'),
-        ('2', 'f', 's', 'i'),
         ('2', 'f', 'd', 'i'),
         ('2', 'f', 'p', 'i'),
         ('1', 'm', 's', 'i'),
@@ -58,34 +56,37 @@ def pickform():
     ]
     return random.choice(forms)
 
-def generate_conjugations(sentence_bw, person, gender, number, tense):
+def generate_conjugations(questions):
     wordlist = []
-    sentence_ar = bw2ar_translit.transliterate(sentence_bw)
-    sentence_ar_stripped = bw2ar_translit.transliterate(sentence_ar, strip_markers=True)
+    for question in range(questions):
+        sentence_bw = pickword()
+        sentence_ar = bw2ar_translit.transliterate(sentence_bw)
+        sentence_ar_stripped = bw2ar_translit.transliterate(sentence_ar, strip_markers=True)
 
-    ar_word = sentence_ar_stripped
-    analysed_words = analyzer.analyze(ar_word)
+        ar_word = sentence_ar_stripped
+        analysed_words = analyzer.analyze(ar_word)
 
-    for analysis in analysed_words:
-        if analysis['pos'] == 'verb':
-            lemma = analysis['lex']
-            break
+        for analysis in analysed_words:
+            if analysis['pos'] == 'verb':
+                lemma = analysis['lex']
+                break
 
+        person, gender, number, tense = pickform()
+        features = {
+            'pos': 'verb',
+            'asp': tense,
+            'per': person,
+            'num': number,
+            'gen': gender
+        }
+        generated = generator.generate(lemma, features)
 
-    features = {
-        'pos': 'verb',
-        'asp': tense,
-        'per': person,
-        'num': number,
-        'gen': gender
-    }
-
-    generated = generator.generate(lemma, features)
-
-    if generated:
-        wordlist.append(generated[0]['diac'])
-
+        if generated:
+            wordlist.append(generated[0]['diac'])
+            
     return wordlist
 
-
+x = generate_conjugations(questions=100)
+print(x)
+print(len(x))
 
