@@ -80,6 +80,7 @@ The tests can be run using:
 python -m unittest discover -s tests -v
 Conjugation Generation Tests
 
+#### Passive Test
 The following tests were carried out:
 
 | Test          | Input                                                     | Expected Result                      | Result |
@@ -88,7 +89,6 @@ The following tests were carried out:
 | Passive voice | `b*l`, present, 2nd person, masculine, singular, passive | A conjugated Arabic form is returned | Fail   |
 
 The active voice test successfully returned a generated Arabic form. The passive voice test returned an empty list ([]) instead of a generated form.
-The failed passive test helped identify a limitation in the current use of CAMeL Tools' morphological generation. This is documented further in the Known Issues section.
 
 Further tests for passive forms were carried out:
 
@@ -98,6 +98,14 @@ Further tests for passive forms were carried out:
 | Passive voice | `rbT`, present, 2nd person, masculine, singular, passive | A conjugated Arabic form is returned | Fail   |
 
 The failed passive test helped identify a limitation in the current use of CAMeL Tools' morphological generation. This is documented further in the Known Issues section.
+
+#### Multiple Form Generation Test
+
+Following test was carried out:
+ | Test          | Input                                                     | Expected Result                      | Result |
+| ------------- | --------------------------------------------------------- | ------------------------------------ | ------ |
+| Generate Words| Generate a list of 100 Words | 100 words Generated | Fail   |
+
 
 Test Structure
 
