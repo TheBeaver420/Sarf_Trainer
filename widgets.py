@@ -2,12 +2,12 @@ from customtkinter import *
 
 # title
 
-def create_title(root,text):
+def create_title(root,text, font = ("Sans Serif",80,"bold")):
     return CTkLabel(
         root,
         text=text,
         fg_color="transparent",
-        font=("Arabic Typesetting",100,"bold")
+        font=font
     )
 
 # start button

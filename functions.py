@@ -1,5 +1,5 @@
 from pyexpat import features
-
+import time
 from camel_tools.utils.charmap import CharMapper
 from camel_tools.utils.transliterate import Transliterator
 from camel_tools.morphology.database import MorphologyDB
@@ -58,7 +58,7 @@ def pickform():
 
 def generate_conjugations(questions):
     wordlist = []
-    for question in range(questions):
+    while len(wordlist) < questions:
         sentence_bw = pickword()
         sentence_ar = bw2ar_translit.transliterate(sentence_bw)
         sentence_ar_stripped = bw2ar_translit.transliterate(sentence_ar, strip_markers=True)
@@ -79,14 +79,21 @@ def generate_conjugations(questions):
             'num': number,
             'gen': gender
         }
+        correct_answer = list(features.values())
+        correct_answer.pop(0)
         generated = generator.generate(lemma, features)
-
-        if generated:
+        if generated and generated[0]['diac'] not in wordlist and generated[0]['diac'] != '':
             wordlist.append(generated[0]['diac'])
-            
-    return wordlist
 
-x = generate_conjugations(questions=100)
-print(x)
-print(len(x))
+    return wordlist, correct_answer
+
+# def timer(seconds):
+#     result = 1
+#     startTime = time.time() + seconds
+#     while result > 0:
+#         endTime = time.time()
+#         result = int(startTime - endTime)
+#         print(result)
+
+# timer(10)
 

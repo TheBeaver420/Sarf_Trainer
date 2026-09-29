@@ -7,7 +7,7 @@
 ## Features
 
 - Customisable quiz timer
-- Extensive wordlist
+- Extendable wordlist
 - Arabic morphology analysis and generation using CAMeL Tools
 - Multiple-choice questions
 
@@ -107,6 +107,7 @@ Following test was carried out:
 | Generate Words| Generate a list of 100 Words | 100 words Generated | Fail   |
 
 
+Some forms of arabic words simply cannot be created for grammatical reasons so there will be new words generated to replace them
 Test Structure
 
 Tests are stored separately from the main application code in the tests directory:
@@ -132,7 +133,6 @@ external CAMeL Tools library, this behaviour cannot be directly corrected
 within the application. 
 Due to this issue, passive generation has been omitted from this project.
 
-
 ## Future Improvements
 
 
@@ -141,3 +141,4 @@ Due to this issue, passive generation has been omitted from this project.
 - Expand the wordlist with additional Arabic roots and verb forms.
 - Add more comprehensive automated unit testing.
 - Improve handling of edge cases in Arabic morphological generation.
+- Make it so the User has to enter the meaning of the words.
