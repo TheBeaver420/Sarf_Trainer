@@ -1,7 +1,10 @@
 from customtkinter import *
 from widgets import create_title, create_button
-from functions import generate_conjugations, pickword
+from functions import generate_conjugations, pickform, pickword
 import random
+
+pickword = pickword()
+pickform = pickform()
 
 class SarfTrainerApp:
     def __init__(self,root):
@@ -58,18 +61,14 @@ class SarfTrainerApp:
         )
         self.next_label.place(relx=0.5, rely=0.2, anchor="center")
         self.start_btn = create_button(self.root,"Done!",command=self.show_quiz_screen)
-        self.start_btn.place(relx=0.5, rely=0.3, anchor="center")
-
-
+        self.start_btn.place(relx=0.5, rely=0.7, anchor="center")
 
     def show_quiz_screen(self):
-        word = pickword()
-        conjugations = generate_conjugations(word, 'p', 'a')
-        chosen_conj = random.choice(conjugations)
         self.clear_screen()
+        genConj = str(generate_conjugations(pickword, pickform[0], pickform[1], pickform[2], pickform[3]))
         self.quiz_frame = QuizFrame(
             master = self.root,
-            question_text=f"What does the word {chosen_conj} mean?" ,
+            question_text=f"What does the word '{genConj}' mean?" ,
             on_submit=self.process_answer
         )
         self.quiz_frame.pack(fill="both",expand=True)

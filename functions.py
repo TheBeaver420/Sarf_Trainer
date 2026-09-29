@@ -1,3 +1,5 @@
+from pyexpat import features
+
 from camel_tools.utils.charmap import CharMapper
 from camel_tools.utils.transliterate import Transliterator
 from camel_tools.morphology.database import MorphologyDB
@@ -5,6 +7,7 @@ from camel_tools.morphology.analyzer import Analyzer
 from camel_tools.morphology.generator import Generator
 import random
 from wordlist import *
+import wordlist
 
 bw2ar = CharMapper.builtin_mapper('bw2ar')
 bw2ar_translit = Transliterator(bw2ar)
@@ -24,20 +27,6 @@ def pickword():
 
 def pickform():
     forms = [
-        ('3', 'm', 's', 'a'),
-        ('3', 'm', 'd', 'a'),
-        ('3', 'm', 'p', 'a'),
-        ('3', 'f', 's', 'a'),
-        ('3', 'f', 'd', 'a'),
-        ('3', 'f', 'p', 'a'),
-        ('2', 'm', 's', 'a'),
-        ('2', 'm', 'd', 'a'),
-        ('2', 'm', 'p', 'a'),
-        ('2', 'f', 's', 'a'),
-        ('2', 'f', 'd', 'a'),
-        ('2', 'f', 'p', 'a'),
-        ('1', 'm', 's', 'a'),
-        ('1', 'm', 'p', 'a'),
         ('3', 'm', 's', 'p'),
         ('3', 'm', 'd', 'p'),
         ('3', 'm', 'p', 'p'),
@@ -51,11 +40,25 @@ def pickform():
         ('2', 'f', 'd', 'p'),
         ('2', 'f', 'p', 'p'),
         ('1', 'm', 's', 'p'),
-        ('1', 'm', 'p', 'p')
+        ('1', 'm', 'p', 'p'),
+        ('3', 'm', 's', 'i'),
+        ('3', 'm', 'd', 'i'),
+        ('3', 'm', 'p', 'i'),
+        ('3', 'f', 's', 'i'),
+        ('3', 'f', 'd', 'i'),
+        ('3', 'f', 'p', 'i'),
+        ('2', 'm', 's', 'i'),
+        ('2', 'm', 'd', 'i'),
+        ('2', 'm', 'p', 'i'),
+        ('2', 'f', 's', 'i'),
+        ('2', 'f', 'd', 'i'),
+        ('2', 'f', 'p', 'i'),
+        ('1', 'm', 's', 'i'),
+        ('1', 'm', 'p', 'i')
     ]
     return random.choice(forms)
 
-def generate_conjugations(sentence_bw,tense, person, gender, number, voice):
+def generate_conjugations(sentence_bw, person, gender, number, tense):
     wordlist = []
     sentence_ar = bw2ar_translit.transliterate(sentence_bw)
     sentence_ar_stripped = bw2ar_translit.transliterate(sentence_ar, strip_markers=True)
@@ -72,9 +75,9 @@ def generate_conjugations(sentence_bw,tense, person, gender, number, voice):
     features = {
         'pos': 'verb',
         'asp': tense,
-        'vox': voice,
         'per': person,
-        'num': number
+        'num': number,
+        'gen': gender
     }
 
     generated = generator.generate(lemma, features)
@@ -84,9 +87,5 @@ def generate_conjugations(sentence_bw,tense, person, gender, number, voice):
 
     return wordlist
 
-# for i in range(10):
-#     word = pickword()
-#     print(word)
-#     forms = pickform()
-#     print(forms)
-#     print(generate_conjugations("b*l", "p", forms[0], forms[1], forms[2], forms[3])) 
+
+

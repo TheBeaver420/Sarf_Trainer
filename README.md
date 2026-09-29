@@ -3,10 +3,11 @@
 ## About
 
 - A quiz game which tests you on basic arabic morphology using a set list of words
+
 ## Features
 
 - Customisable quiz timer
-- Customisable wordlist
+- Extensive wordlist
 - Arabic morphology analysis and generation using CAMeL Tools
 - Multiple-choice questions
 
@@ -87,6 +88,14 @@ The following tests were carried out:
 | Passive voice | `b*l`, present, 2nd person, masculine, singular, passive | A conjugated Arabic form is returned | Fail   |
 
 The active voice test successfully returned a generated Arabic form. The passive voice test returned an empty list ([]) instead of a generated form.
+The failed passive test helped identify a limitation in the current use of CAMeL Tools' morphological generation. This is documented further in the Known Issues section.
+
+Further tests for passive forms were carried out:
+
+| Test          | Input                                                     | Expected Result                      | Result |
+| ------------- | --------------------------------------------------------- | ------------------------------------ | ------ |
+| Passive voice  | `xrj`, present, 2nd person, masculine, singular, passive  | A conjugated Arabic form is returned | Fail   |
+| Passive voice | `rbT`, present, 2nd person, masculine, singular, passive | A conjugated Arabic form is returned | Fail   |
 
 The failed passive test helped identify a limitation in the current use of CAMeL Tools' morphological generation. This is documented further in the Known Issues section.
 
@@ -112,7 +121,8 @@ This was investigated and found to be related to the behaviour of the
 CAMeL Tools morphology database rather than an error in Sarf Trainer's
 implementation. As the morphological generation is provided by the
 external CAMeL Tools library, this behaviour cannot be directly corrected
-within the application.
+within the application. 
+Due to this issue, passive generation has been omitted from this project.
 
 
 ## Future Improvements
